@@ -1,0 +1,288 @@
+.checkout .column_right {
+    border-left: 1px solid #EAEAEA;
+    flex: 0 0 40%;
+    width: 40%;
+}
+
+.checkout .column_left {
+    flex: 0 0 60%;
+    width: 60%;
+}
+
+.delivery_info_content {
+    margin-right: 229px;
+    max-width: 400px;
+}
+
+.delivery_info_content h4 {
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 52px;
+    letter-spacing: -0.02em;
+    color: #1E1E1E;
+    margin-bottom: 24px;
+}
+
+.delivery_info_content .form_wrapper {
+    margin-bottom: 62px;
+}
+
+.delivery_info_content .checkbox_group .chackbox_container {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 28px;
+    margin-bottom: 38px;
+}
+
+.delivery_info_content .checkbox_group .chackbox_container .checkmark {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.delivery_info_content .checkbox_group .chackbox_container .checkmark:after {
+    left: 5px;
+    top: 0;
+}
+
+.checkout .column_right {
+    border-left: 1px solid #EAEAEA;
+}
+
+.ms_bag_details {
+    width: 100%;
+    padding-left: 150px;
+}
+
+.ms_bag_details .ms_bag_tag {
+    padding-bottom: 49px;
+}
+
+.ms_bag_details .ms_bag_tag {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 28px;
+    letter-spacing: -0.02em;
+    color: #1E1E1E;
+}
+
+.ms_bag_details .ms_bag_details_title {
+    padding-bottom: 21px;
+}
+
+.ms_bag_details .ms_bag_inner {
+    padding-bottom: 69px;
+}
+
+.ms_bag_details .ms_bag_inner:last-child {
+    padding-bottom: 102px;
+}
+
+.ms_bag_inner .remove {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0.1em;
+    color: #D0D0D0;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.ms_bag_details .ms_bag_details_list_header,
+.ms_bag_details .ms_bag_details_list_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ms_bag_details .ms_bag_list_title {
+    min-width: 114px;
+}
+
+.ms_bag_details .ms_bag_list_title:last-child h3 {
+    text-align: end;
+}
+
+.ms_bag_details .ms_bag_list_text {
+    min-width: 114px;
+}
+
+.ms_bag_details .ms_bag_list_text:last-child h3 {
+    text-align: end;
+    font-weight: 400;
+}
+
+.ms_bag_details .ms_bag_list_title h3 {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8D8D8D;
+    text-align: start;
+}
+
+.ms_bag_details .ms_bag_list_text .ms_bag_quantity .quantity {
+    width: 116px;
+}
+
+
+.ms_bag_details .ms_bag_list_text .ms_bag_id,
+.ms_bag_details .ms_bag_list_text .ms_bag_price {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    color: #1E1E1E;
+}
+
+
+.ms_bag_details .ms_bag_list_text .ms_bag_price {
+    letter-spacing: -0.02em;
+    font-weight: 400;
+}
+
+.ms_bag_details .sub_total .ms_bag_price,
+.ms_bag_details .delivery_fee .ms_bag_price,
+.ms_bag_details .grannd_tital .ms_bag_price {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    letter-spacing: -0.02em;
+    color: #1E1E1E;
+}
+
+.ms_bag_details .sub_total h3,
+.ms_bag_details .delivery_fee h3,
+.ms_bag_details .grannd_tital h3 {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0.1em;
+    color: #8D8D8D;
+}
+
+.ms_bag_details .sub_total,
+.ms_bag_details .delivery_fee,
+.ms_bag_details .grannd_tital {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #1f1f1f14;
+}
+
+.ms_bag_details .sub_total {
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+
+.ms_bag_details .delivery_fee {
+    padding-top: 24px;
+    padding-bottom: 31px;
+}
+
+.ms_bag_details .grannd_tital {
+    padding-top: 24px;
+    padding-bottom: 46px;
+    border-color: #1E1E1E;
+}
+
+.ms_bag_details .grannd_tital h3 {
+    color: #1E1E1E;
+}
+
+.ms_bag_details .grannd_tital .ms_bag_price {
+    font-weight: 700;
+}
+
+.ms_bag_details .confirm_order .Common_btn {
+    width: 100%;
+}
+
+@media (max-width: 1679.98px) {
+
+}
+
+@media (max-width: 1399.98px) {
+  .edit_profile_view {
+      margin: 0;
+  }
+  .ms_bag_details {
+    width: 100%;
+    padding-left: 58px;
+  }
+  .checkout .column_right {
+    border-left: 1px solid #EAEAEA;
+    flex: 0 0 50%;
+    width: 50%;
+}
+
+.checkout .column_left {
+    flex: 0 0 50%;
+    width: 50%;
+}
+}
+
+@media (max-width: 991.98px) {
+  
+}
+@media (max-width: 575.98px) {
+.checkout .column {
+    flex: 0 0 100%;
+    width: 100%;
+}
+.checkout .column_right {
+    border-left: none;
+    padding-top: 87px;
+}
+.delivery_info_content {
+    margin-right: 0;
+}
+.delivery_info_content h4 {
+    margin-bottom: 43px;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 23px;
+    text-align: center;
+}
+.delivery_info_content .form_wrapper {
+    margin-bottom: 39px;
+}
+.delivery_info_content .payment{
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 23px;
+    text-align: start;
+    margin-bottom: 19px;
+}
+.ms_bag_details .ms_bag_tag {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 23px;
+    text-align: center;
+}
+.ms_bag_details {
+    width: 100%;
+    padding-left: 0;
+}
+.ms_bag_details .ms_bag_inner {
+    padding-bottom: 26px;
+}
+.ms_bag_details .ms_bag_inner:last-child {
+    padding-bottom: 73px;
+}
+.ms_bag_details .ms_bag_list_title h3 {
+    font-size: 12px;
+    font-weight: bold;
+}
+.ms_bag_details .ms_bag_list_text .ms_bag_id, .ms_bag_details .ms_bag_list_text .ms_bag_price {
+    font-size: 15px;
+    line-height: 17px;
+}
+.ms_bag_inner .remove {
+    font-size: 12px;
+
+}
+}

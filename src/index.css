@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+:root {
+  --black: #000000;
+  --gray: #949494;
+  --ubuntu: 'Ubuntu', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+*, html, body {
+  font-family: var(--ubuntu);
+  color: var(--black);
+}
+
+body {
+  font-size: 16px;
+  line-height: 22px;
+
+  font-weight: 400;
+
+  /* Safari/Chromium and Firefox equivalents that turn on font-smoothing on macOS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (max-width: 575.98px) {
+  body {
+    font-size: 14px;
+    line-height: 18px;
+  }
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}

@@ -1,0 +1,43 @@
+.deliver_address_edit {
+    padding: 101px;
+}
+.deliver_address_edit .container {
+    max-width: 341px;
+    width: 100%;
+    margin: 0 auto;
+}
+.deliver_address_edit_content h4 {
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 52px;
+    letter-spacing: -0.02em;
+    color: #1E1E1E;
+    margin-bottom: 24px;
+}
+
+@media (max-width: 1679.98px) {
+    
+}
+
+@media (max-width: 1399.98px) {
+  
+}
+
+@media (max-width: 991.98px) {
+  
+}
+@media (max-width: 575.98px) {
+    .deliver_address_edit .container {
+        max-width: 100%;
+    }
+    .deliver_address_edit {
+        padding: 0px;
+    }
+    .deliver_address_edit_content h4 {
+        text-align: center;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 23px;
+    }
+}
+

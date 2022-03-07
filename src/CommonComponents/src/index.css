@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 16px;
+  line-height: 22px;
+
+  font-weight: 400;
+
+  /* Safari/Chromium and Firefox equivalents that turn on font-smoothing on macOS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (max-width: 575.98px) {
+  body {
+    font-size: 14px;
+    line-height: 18px;
+  }
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}

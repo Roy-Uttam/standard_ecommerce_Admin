@@ -1,0 +1,48 @@
+.profile_edit .container {
+    max-width: 341px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.profile_edit_upload_picture {
+    text-align: center;
+    margin-bottom: 81px;
+}
+
+.profile_edit_upload_picture .profile_picture_wrapper {
+    margin: 0 auto;
+}
+
+.profile_edit_upload_picture .upload_picture {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 21px;
+    letter-spacing: 0.1em;
+    color: #1E1E1E;
+    margin-top: 24px;
+    background: transparent;
+    border: 0;
+    text-transform: uppercase;
+}
+
+@media (max-width: 1679.98px) {
+    
+  }
+  
+  @media (max-width: 1399.98px) {
+    
+  }
+  
+  @media (max-width: 991.98px) {
+    
+  }
+  @media (max-width: 575.98px) {
+    .profile_edit .container {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    .profile_edit_upload_picture {
+        text-align: center;
+        margin-bottom: 43px;
+    }
+  }

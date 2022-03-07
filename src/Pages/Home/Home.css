@@ -1,0 +1,57 @@
+.dashboard {
+  display              : grid;
+  grid-template-columns: auto auto auto auto;
+  column-gap           : 2.70833333vw;
+}
+
+.dashboard .col {
+  min-height: 22.65625vh;
+
+  text-align: center;
+  border    : 1px solid var(--black);
+
+  padding: 2.734375vh 1.94444444vw;
+}
+
+.dashboard p {
+  font-weight: 500;
+  font-size  : 1.7578125vh;
+  line-height: 2.05078125vh;
+  text-transform: capitalize;
+
+  margin-bottom: 3.41796875vh;
+}
+
+.dashboard h1 {
+  font-weight: 500;
+  font-size  : 7.8125vh;
+  line-height: 8.984375vh;
+}.dashboard {
+  display              : grid;
+  grid-template-columns: auto auto auto auto;
+  column-gap           : 2.70833333vw;
+}
+
+.dashboard .col {
+  min-height: 22.65625vh;
+
+  text-align: center;
+  border    : 1px solid var(--black);
+
+  padding: 2.734375vh 1.94444444vw;
+}
+
+.dashboard p {
+  font-weight: 500;
+  font-size  : 1.7578125vh;
+  line-height: 2.05078125vh;
+  text-transform: capitalize;
+
+  margin-bottom: 3.41796875vh;
+}
+
+.dashboard h1 {
+  font-weight: 500;
+  font-size  : 7.8125vh;
+  line-height: 8.984375vh;
+}

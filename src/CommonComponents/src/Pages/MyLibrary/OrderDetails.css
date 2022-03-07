@@ -1,0 +1,208 @@
+.order_section .column_left {
+    flex: 0 0 55%;
+    width: 55%;
+    padding-right: 108px;
+}
+.order_details{
+    max-width: 589px;
+    width: 100%;
+}
+.order_details .order_tag {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 60px;
+}
+.order_details .order_tag h3 {
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: #1E1E1E;
+    font-size: 16px;
+    line-height: 28px;
+}
+.order_details .order_tag .order_id{
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    letter-spacing: -0.02em;
+    color: #1E1E1E;
+}
+
+.order_details .order_details_title, 
+.order_details .order_details_list_content{
+    padding-bottom: 33px;
+}
+
+.order_details .order_details_list_content:last-child{
+    padding-bottom: 49px;
+}
+.order_details .order_details_list_header, 
+.order_details .order_details_list_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.order_details .order_list_title {
+    min-width: 114px;
+}
+.order_details .order_list_title:last-child h3{
+    text-align: end;
+}
+.order_details .order_list_text {
+    min-width: 114px;
+}
+.order_details .order_list_text:last-child h3{
+    text-align: end;
+    font-weight: 400;
+}
+.order_details .order_list_title h3 {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8D8D8D;
+    text-align: start;
+}
+
+.order_details .order_list_text .order_id, 
+.order_details .order_list_text .order_quantity,
+.order_details .order_list_text .order_price {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    color: #1E1E1E;
+}
+
+
+.order_details .order_list_text .order_price {
+    letter-spacing: -0.02em;
+    font-weight: 400;
+}
+
+.order_details .sub_total .order_price,
+.order_details .delivery_fee .order_price,
+.order_details .grannd_tital .order_price{
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    letter-spacing: -0.02em;
+    color: #1E1E1E;
+}
+
+.order_details .sub_total h3,
+.order_details .delivery_fee h3,
+.order_details .grannd_tital h3{
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0.1em;
+    color: #8D8D8D;
+}
+
+.order_details .sub_total,
+.order_details .delivery_fee,
+.order_details .grannd_tital{
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #1f1f1f33;
+}
+.order_details .sub_total{
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+.order_details .delivery_fee{
+    padding-top: 24px;
+    padding-bottom: 31px;
+}
+.order_details .grannd_tital{
+    padding-top: 24px;
+    padding-bottom: 24px;
+    border-color: #1E1E1E;
+    
+}
+.order_details .grannd_tital h3{
+    color: #1E1E1E;
+}
+.order_details .grannd_tital .order_price{
+    font-weight: 700;
+}
+
+.order_section .column_right{
+    flex: 0 0 45%;
+    width: 45%;
+    border-left: 1px solid #EAEAEA;
+    padding-left: 79px;
+}
+@media (max-width: 1679.98px) {
+    
+}
+
+@media (max-width: 1399.98px) {
+  
+}
+
+@media (max-width: 991.98px) {
+  
+}
+@media (max-width: 575.98px) {
+    .order_section .column_left {
+        flex: 0 0 100%;
+        width: 100%;
+        padding-right: 0;
+    }
+    .order_section .column_right {
+        flex: 0 0 100%;
+        width: 100%;
+        border-left: none;
+        padding-left: 0;
+    }
+    .order_details .order_list_text .order_id, 
+    .order_details .order_list_text .order_quantity, 
+    .order_details .order_list_text .order_price {
+        font-weight: 500;
+        color: #1E1E1E;
+        font-size: 15px;
+        line-height: 17px;
+    }
+    .order_details .order_tag .order_id {
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 23px;
+        letter-spacing: -0.02em;
+    }
+    .order_details .grannd_tital {
+        padding-bottom: 69px;
+        padding-top: 20px;
+    }
+    .order_details .order_details_title{
+        padding-bottom: 26px;
+    }
+    .order_details .order_details_list_content {
+        padding-bottom: 20px;
+    }
+    .order_details .order_details_list_content:last-child {
+        padding-bottom: 20px;
+    }
+    .order_details .sub_total {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    .order_details .delivery_fee {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    .order_details .sub_total h3, .order_details .delivery_fee h3, .order_details .grannd_tital h3 {
+        font-size: 15px;
+    }
+    .order_details .order_tag {
+        padding-bottom: 54px;
+        text-align: center;
+    }
+    .order_details .order_tag h3 {
+        font-size: 7px;
+        line-height: 8px;
+    }
+}
+
+

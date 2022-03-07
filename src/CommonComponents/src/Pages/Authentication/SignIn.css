@@ -1,0 +1,98 @@
+.sign_in_page .container {
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.sign_in_page .column_left {
+    flex: 0 0 60%;
+    width: 60%;
+}
+
+.sign_in_content .logo img {
+    width: 78px;
+}
+
+.sign_in_content h1 {
+    font-size: 60px;
+    font-weight: 400;
+    line-height: 69px;
+    margin: 18px 0;
+    max-width: 363px;
+    width: 100%;
+}
+
+.sign_in_content p {
+    font-size: 20px;
+    line-height: 29px;
+    color: #949494;
+}
+
+
+.sign_in_page .column_right {
+    flex: 0 0 40%;
+    width: 40%;
+}
+
+.sign_in_form_content h4 {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 23px;
+    color: #202020;
+    margin-bottom: 41px;
+}
+
+.form_wrapper .Common_btn {
+    width: 100%;
+}
+
+.create_forgot {
+    text-align: center;
+    margin: 16px 0;
+}
+
+.create_forgot .forgot_pass, .create_forgot .create_new {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    color: #202020;
+}
+
+.create_forgot p {
+    font-size: 18px;
+    line-height: 21px;
+    color: #949494;
+    margin-top: 52px;
+}
+@media (max-width: 1679.98px) {
+    
+}
+
+@media (max-width: 1399.98px) {
+  
+}
+
+@media (max-width: 991.98px) {
+  
+}
+@media (max-width: 575.98px) {
+    .form_wrapper .Common_btn {
+        width: 100%;
+        margin-top: 43px;
+    }
+    .sign_in_page .column_left {
+        display: none;
+    }
+    .sign_in_page .column_right {
+        flex: 0 0 100%;
+        width: 100%;
+    }
+    .sign_in_form_content h4 {
+        margin-bottom: 40px;
+        text-align: center;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 23px;
+    }
+    
+}

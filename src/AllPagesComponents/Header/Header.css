@@ -1,0 +1,33 @@
+.header {
+    border-bottom: 1px solid var(--black);
+
+    padding: 1.953125vh 4.166666666vw 1.953125vh 1.527777777vw;
+}
+
+.header_inner {
+    display        : flex;
+    justify-content: space-between;
+    align-items    : center;
+}
+
+.app_name {
+    font-weight: 500;
+    font-size  : 1.7578125vh;
+    line-height: 2.05078125vh;
+}
+.header_user_wrapper .user_wrapper {
+    width: 3.02734375vh;
+    height: 3.02734375vh;
+
+    border: 1px solid #202020;
+    border-radius: 50%;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.header_user_wrapper .user_wrapper img {
+    width: 1.953125vh;
+    height: 1.953125vh ;
+}

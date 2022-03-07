@@ -1,0 +1,76 @@
+.navbar>.nav_item:not(:last-of-type) {
+    margin-bottom: 3.41796875vh;
+}
+
+.navbar .nav_link,
+.navbar .category {
+    font-size     : 1.7578125vh;
+    line-height   : 2.05078125vh;
+    font-weight   : 500;
+    color         : #A0A0A0;
+    text-transform: capitalize;
+
+    display: block;
+    position: relative;
+
+    padding-left: 2.15277777vw;
+}
+
+.navbar .nav_item>.nav_link:before,
+.navbar .category:before {
+    content: '';
+
+    position : absolute;
+    top      : 50%;
+    transform: translateY(-50%);
+    left     : 0;
+
+    background-image: url(../../Assets/Icons/shield-light-gray.svg);
+    background-size : 2.05078125vh 2.05078125vh;
+
+    width : 2.05078125vh;
+    height: 2.05078125vh;
+}
+.navbar .category {
+    background-color: transparent;
+    padding-right: 2.15277777vw;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+.navbar .category::after {
+    content: '';
+
+    position : absolute;
+    top      : 50%;
+    transform: translateY(-50%);
+    right     : 0;
+
+    background-image: url(../../Assets/Icons/chaveron-right-light-gray.svg);
+    background-size : 2.05078125vh 2.05078125vh;
+
+    width : 2.05078125vh;
+    height: 2.05078125vh;
+}
+
+/* ==subcategory== */
+.sub_navbar {
+    padding-top: 3.125vh;
+}
+.sub_navbar .sub_nav_item:not(:last-of-type) {
+    margin-bottom: 2.9296875vh;
+}
+.sub_navbar .nav_link {
+    color: var(--black);
+}
+.sub_navbar.collapse {
+    display: none;
+    overflow: hidden;
+    max-height: 0;
+    transition: height .7s ease-in-out;
+}
+.sub_navbar.collapse.show {
+    display: block;
+    max-height: initial;
+}

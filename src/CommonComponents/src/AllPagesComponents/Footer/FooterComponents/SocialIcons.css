@@ -1,0 +1,17 @@
+.social_Icons_wrapper {
+    display: flex;
+    align-items: center;
+}
+.social_Icons_wrapper a {
+    display: inline-block;
+    max-width: 40px;
+    max-height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.social_Icons_wrapper a:not(:last-child) {
+    margin-right: 17px;
+}
+.social_Icons_wrapper a img {
+    width: 100%;
+}

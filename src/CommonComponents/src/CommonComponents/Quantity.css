@@ -1,0 +1,31 @@
+.quantity {
+  display: flex;
+  justify-content: space-around;
+  width: 165px;
+  padding: 8px 0;
+  border: 1px solid #949494;
+  align-items: center;
+}
+
+.quantity button {
+  width: 24px;
+  padding: 5px;
+  background: none;
+  border: none;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity button img {
+  opacity: 0.3;
+}
+
+.quantity h3 {
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: #202020;
+}

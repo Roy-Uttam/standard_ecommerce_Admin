@@ -1,0 +1,62 @@
+.sidenav_user_wrapper {
+    text-align: center;
+}
+
+.sidenav_user_wrapper .icon {
+    width : 11.42578125vh;
+    height: 11.42578125vh;
+
+    background   : var(--gray);
+    border-radius: 50%;
+
+    margin: 0 auto;
+
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+}
+
+.sidenav_user_wrapper .icon img {
+    width : 5.17578125vh;
+    height: 5.17578125vh;
+}
+
+.user_wrapper p {
+    font-size  : 1.7578125vh;
+    line-height: 2.05078125vh;
+    font-weight: 500;
+
+    margin-top   : 1.46484375vh;
+    margin-bottom: 1.46484375vh;
+}
+
+.user_wrapper .admin_status {
+    font-size  : 1.5625vh;
+    line-height: 1.7578125vh;
+    font-weight: 500;
+
+    display   : inline-block;
+    background: #c4c4c4;
+
+    padding: 0.48828125vh 1.11111111vw;
+}
+
+/* ==navbar start== */
+.navbar_wrapper {
+    max-height: calc(100vh - 34.08203125vh);
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    padding-top      : 7.6171875vh;
+    /* padding-bottom: 7.6171875vh; */
+
+    /* hide scrollbar for firefox */
+    -ms-overflow-style: none;
+    /* hide scrollbar for IE and Edge */
+    scrollbar-width   : none;
+}
+
+/* hide scrollbar for chrome, safari and opera */
+.navbar_wrapper::-webkit-scrollbar {
+    display: none;
+}

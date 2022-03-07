@@ -1,0 +1,140 @@
+.profile_page .column {
+    flex: 0 0 33.33333333%;
+    width: 33.33333333%
+}
+
+
+.edit_profile_view {
+    max-width: 154px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.edit_profile_view .edit_profile_link {
+    display: inline-block;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0.1em;
+    color: #1E1E1E;
+    background-image: url(../../Assets/icons/edit.svg);
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
+    background-position: left 0 center;
+    padding-left: 32px;
+    margin-top: 32px;
+}
+
+.personal_info_view h4, .delivery_address_view h4 {
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 52px;
+    letter-spacing: -0.02em;
+    color: #1E1E1E;
+    margin-bottom: 40px;
+}
+
+.pd_info_view ul, .pd_info_view ul li {
+    margin-bottom: 41px;
+}
+
+.pd_info_view ul li p {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #6B6B6B;
+    margin-bottom: 9px;
+}
+
+.pd_info_view ul li h6 {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    color: #1E1E1E;
+}
+
+.delivery_address_view .view_all_link {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+    text-transform: capitalize;
+    letter-spacing: 0.1em;
+    text-decoration-line: underline;
+    text-decoration-color: #6B6B6B;
+    color: #000000;
+}
+
+
+
+@media (max-width: 1679.98px) {
+
+  }
+  
+  @media (max-width: 1399.98px) {
+    .edit_profile_view {
+        margin: 0;
+    }
+  }
+  
+  @media (max-width: 991.98px) {
+    
+  }
+  @media (max-width: 575.98px) {
+    
+    .profile_picture_wrapper img {
+        width: 29.65px;
+    }.edit_profile_view {
+        max-width: 100%;
+    }
+    .profile_page .column {
+        flex: 0 0 100%;
+        width: 100%;
+    }
+    .profile_picture_wrapper {
+        max-width: 63px;
+        height: 63px;
+    }
+    .edit_profile_view .edit_profile_link {
+        background-position: 34%;
+        background-size: 9.25px;
+        width: 100%;
+        text-align: center;
+        padding-left: 0;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 14px;
+        margin-top: 14px;
+        margin-bottom: 43px;
+    }
+    .personal_info_view h4, .delivery_address_view h4 {
+        font-size: 20px;
+        margin-bottom: 29px;
+        text-align: center;
+    }
+    
+    .pd_info_view ul li {
+        margin-bottom: 33px;
+    }
+    .pd_info_view ul{
+        margin-bottom: 0;
+    }
+    .pd_info_view ul li:last-child{
+        margin-bottom: 23px;
+    }
+    .delivery_address_view{
+        margin-top: 63px;
+    }
+    .pd_info_view ul li h6 {
+        font-size: 15px;
+        line-height: 17px;
+    }
+    .pd_info_view ul li p {
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 14px;
+        margin-bottom: 4px;
+        letter-spacing: 0.2em;
+    }
+  }

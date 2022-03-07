@@ -1,0 +1,142 @@
+.my_orders_section{
+    max-width: 1159px;
+    margin: 0 auto;
+}
+.my_orders_title {
+    padding-bottom: 52px;
+}
+
+.order_list_title {
+    min-width: 135px;
+}
+
+.order_list_text {
+    min-width: 114px;
+}
+
+.my_orders_title h2 {
+    font-size: 46px;
+    line-height: 62px;
+    text-align: center;
+    letter-spacing: -0.02em;
+    color: #1E1E1E;
+}
+
+.my_orders_list_header,
+.my_orders_list_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.my_orders_list_header {
+    padding-bottom: 20px;
+}
+
+.my_orders_list_content {
+    padding: 29px 0;
+    border-bottom: 1.5px solid #6829760f;
+}
+
+.my_orders_list_content:last-child {
+    border-bottom: 0;
+}
+
+.order_list_title h3 {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #6B6B6B;
+    text-align: start;
+}
+
+.order_list_title .status {
+    text-align: center;
+}
+
+.order_list_text .order_id a,
+.order_list_text .order_date,
+.order_list_text .order_quantity {
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 34px;
+    color: #272727;
+}
+
+.order_list_text .order_price {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 23px;
+    letter-spacing: -0.02em;
+    color: #1E1E1E;
+}
+
+.order_list_status {
+    padding: 8px 0;
+    width: 130px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 28px;
+    letter-spacing: 0.08em;
+    color: #202020;
+    text-align: center;
+}
+
+.order_list_status.panding {
+    background: #D6D6D6;
+}
+
+.order_list_status.delivered {
+    background: #EEEEEE;
+}
+@media (max-width: 1679.98px) {
+    
+}
+
+@media (max-width: 1399.98px) {
+  
+}
+
+@media (max-width: 991.98px) {
+  
+}
+@media (max-width: 575.98px) {
+.order_list_status {
+    width: 65px;
+    font-size: 7px;
+    line-height: 8px;
+    }
+.my_orders_list {
+    overflow: auto;
+}
+.order_list_text {
+    min-width: fit-content;
+}
+.my_orders_list_header {
+    width: 481px;
+}
+.my_orders_list_content {
+    width: 481px;
+}
+.order_list_text {
+    min-width: 60px;
+}
+.order_list_title {
+    min-width: 90px;
+}
+.order_list_title:last-child h3{
+    text-align: end;
+    margin-right: 10px;
+}
+.order_list_text .order_id a, .order_list_text .order_date, .order_list_text .order_quantity {
+    font-size: 15px;
+    line-height: 17px;
+}
+.order_list_text .order_price {
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 17px;
+    }
+}

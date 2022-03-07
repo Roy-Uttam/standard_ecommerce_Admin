@@ -1,0 +1,23 @@
+[
+    {
+        "address_Id": "01",
+        "STREET_ADDRESS": "Niketan, Gulshan, Dhaka",
+        "AREA": "Gulshan",
+        "CITY": "DHAKA",
+        "ZIP_CODE": "1260"
+    },
+    {
+        "address_Id": "02",
+        "STREET_ADDRESS": "Niketan, Gulshan, Dhaka",
+        "AREA": "Gulshan",
+        "CITY": "DHAKA",
+        "ZIP_CODE": "1260"
+    },
+    {
+        "address_Id": "03",
+        "STREET_ADDRESS": "Niketan, Gulshan, Dhaka",
+        "AREA": "Gulshan",
+        "CITY": "DHAKA",
+        "ZIP_CODE": "1260"
+    }
+]

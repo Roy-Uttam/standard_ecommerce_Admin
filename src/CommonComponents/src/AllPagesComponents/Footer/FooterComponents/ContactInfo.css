@@ -1,0 +1,20 @@
+.contact_info_wrapper ul, .contact_info_wrapper li {
+    display: flex;
+    align-items: center;
+}
+
+.contact_info_wrapper li:not(:last-child) {
+    margin-right: 41px;
+}
+
+.contact_info_wrapper img {
+    max-width: 13px;
+    height: auto;
+    margin-right: 11px;
+}
+
+.contact_info_wrapper p {
+    font-size: 14px;
+    line-height: 21px;
+    color: #949494;
+}
