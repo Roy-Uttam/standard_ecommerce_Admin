@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ReactPagination from 'react-paginate';
 import Header from '../../AllPagesComponents/Header/Header'
@@ -11,16 +11,36 @@ import AddButton from '../../CommonComponents/Buttons/AddButton';
 import Search from '../../CommonComponents/Search';
 import Modal from "../../CommonComponents/Modal/Modal"
 import ViewModal from '../../CommonComponents/Modal/ViewModal/ViewModal';
+import axios from 'axios';
+import { useForm } from "react-hook-form";
+// import 'dist/js/dropify.js';
+// import 'dist/css/dropify.css';
 
 export default function HeroSection() {
-    const [items] = useState(Data);
+    // const [items] = useState(Data);
     const [viewshow, setViewshow] = useState(false);
     const [pageNumber, setPageNumber] = useState(0);
 
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [show, setShow] = useState(false);
 
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
     // Item Modal 
+
+    // Hero slider retrive data from api
+    const [Heroslider , setHeroSliders] = useState([]);
+    useEffect(() => {
+        axios.get(`${window.baseUrl}sliders`)
+        .then(res => {
+            if (res.status === 200 && res.data.status === true) {
+                setHeroSliders(res.data.data);
+            } 
+        })
+        .catch(error => {
+            console.log('error')
+        })
+      }, [])
 
 
     const handleClick = () => {
@@ -48,33 +68,88 @@ export default function HeroSection() {
         });
     }
 
+
+
+    // ADD FORM OPERATION
+    const onSubmit = data => {
+
+        let image = data.image.length === 0 ? '' : data.image;
+        let config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        }
+
+        var formData = new FormData()
+        formData.append('description', data.description);
+        formData.append('link', data.link);
+        formData.append('precedence', data.precedence);
+
+        if (data.image.length !== 0) {
+
+            formData.append('image', image[0]);
+            axios.post('https://asce.antopolis.xyz/api/sliders', formData, config)
+                .then(res => {
+                    console.log(res)
+                    if (res.status === 200 && res.data.status === true) {
+                        
+                        setHeroSliders([...Heroslider, res.data.data])
+
+                    } else {
+                        console.log('error');
+                    }
+                })
+                .catch(error => {
+                    console.log('error');
+                })
+        } else {
+
+            formData.append('image', image[0]);
+            axios.post('https://asce.antopolis.xyz/api/sliders', formData, config)
+                .then(res => {
+                    console.log(res)
+                    if (res.status === 200 && res.data.status === true) {
+                        
+                        setHeroSliders([...Heroslider, res.data.data])
+                    } else {
+                        console.log('error');
+                    }
+                })
+                .catch(error => {
+                    console.log('error');
+                })
+        }
+        setShow(!show)
+
+    }
+
     // Pagination
 
-    const itemsPerPage = 3;
+    const itemsPerPage = 5;
     const PagesVisited = pageNumber * itemsPerPage
-
-    const pageCount = Math.ceil(items.length / itemsPerPage)
+    const pageCount = Math.ceil(Heroslider.length / itemsPerPage)
     const changePage = ({ selected }) => {
         setPageNumber(selected)
     }
 
-    const displayitems = items.slice(PagesVisited, PagesVisited + itemsPerPage)
-        .map((item) => {
-            return <div className="hero-section items_contents" key={item.item_id}>
+    // Display heroslider data
+    const displayitems = Heroslider.slice(PagesVisited, PagesVisited + itemsPerPage)
+    .map((item) => {
+            return <div className="hero-section items_contents" key={item.slider_id}>
                 <div className="container_inner">
                     <div className="item_content">
                         <div className="item_element img_content">
-                            <img src={Image} alt="Product" />
+                            <img src={item.image} alt="Product" />
                         </div>
                     </div>
                     <div className="item_content">
-                        <h4 className='item_element'>Description 1</h4>
+                        <h4 className='item_element'>{item.description}</h4>
                     </div>
                     <div className="item_content">
-                        <h4 className='item_element'>Link</h4>
+                        <h4 className='item_element'>{item.link}</h4>
                     </div>
                     <div className="item_content">
-                        <h4 className='item_element'>2</h4>
+                        <h4 className='item_element'>{item.precedence}</h4>
                     </div>
                     <div className="item_content">
                         <div className='item_element'>
@@ -156,55 +231,34 @@ export default function HeroSection() {
                     </div>
                 </div>
             </div>
+
             {/* add item modal */}
-            <Modal show={show} setShow={setShow}>
-                <div className='input_group'>
-                    <label htmlFor="" className='input_field_label'>Name</label>
-                    <input className='input_field' type="text" placeholder='Name' />
-                </div>
+            <Modal show={show} onSubmit={handleSubmit(onSubmit)} setShow={setShow} title={"Add new Hero-slider"}>
                 <div className='input_group'>
                     <label htmlFor="" className='input_field_label'>Description</label>
-                    <input className='input_field' type="text" placeholder='Description' />
+                    <input className='input_field' {...register("description")} name="description" type="text" placeholder="description" />
                 </div>
+
                 <div className='input_group'>
-                    <label htmlFor="" className='input_field_label'>Price</label>
-                    <input className='input_field' type="text" placeholder='Price' />
+                    <label htmlFor="" className='input_field_label'>Link</label>
+                    <input className='input_field' {...register("link")} name="link" type="text" placeholder="link" />
                 </div>
-                <div className="input_contents">
-                    <div className='input_group'>
-                        <label htmlFor="" className='input_field_label'>Category</label>
-                        <input className='input_field' type="text" placeholder='Category' />
-                    </div>
-                    <div className='input_group'>
-                        <label htmlFor="" className='input_field_label'>Category</label>
-                        <input className='input_field' type="text" placeholder='Category' />
-                    </div>
+                
+                <div className='input_group'>
+                    <label htmlFor="" className='input_field_label'>Precedence</label>
+                    <input className='input_field' {...register("precedence")} name="precedence" type="text" placeholder="precedence" />
                 </div>
-                <div className="input_contents">
-                    <div className='input_group'>
-                        <label htmlFor="" className='input_field_label'>Quantity</label>
-                        <input className='input_field' type="text" placeholder='Category' />
-                    </div>
-                    <div className='input_group'>
-                        <div className='checkbox_group'>
-                            <label htmlFor="" className='input_field_label'>Visible:</label>
-                            <label className="chackbox_container">
-                                <input type="checkbox" name="Option 1" />
-                                <span className="checkmark"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
+                
                 <div className='input_group'>
                     <div>
                         <label htmlFor="" className='input_field_label'>Image (Max 10)</label>
-                        <input type="file" id="file" multiple onChange={handleImageChange} />
+                        <input {...register("image")} name="image" type="file" id='file' className="dropify" accept="image/*" data-max-file-size="5M" />
                         <div className="label-holder">
                             <label htmlFor="file" className="label">
                                 Upload Image
                             </label>
                         </div>
-                        <div className="result">{renderPhotos(selectedFiles)}</div>
+                        {/* <div className="result">{renderPhotos(selectedFiles)}</div> */}
                     </div>
                 </div>
                 <div className="input_contents">
@@ -212,10 +266,12 @@ export default function HeroSection() {
                         <button type='button' className='cancel' onClick={() => setShow(!show)}>CANCEL</button>
                     </div>
                     <div className="input_group">
-                        <Link className='submit' to="/">SUBMIT</Link>
+                    <button type="submit" className="submit">Submit
+                        </button>
                     </div>
                 </div>
-            </Modal>
+                </Modal>
+
             <ViewModal viewshow={viewshow} setViewshow={setViewshow}>
                 <div className='delivery_address_view pd_info_view'>
                     <ul>

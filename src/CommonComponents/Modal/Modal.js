@@ -2,7 +2,7 @@ import React from 'react'
 
 import './modal_content.css';
 
-function Modal({show, setShow, children, title}) {
+function Modal({show, setShow, children, onSubmit,title}) {
     return (
         <>
 
@@ -15,7 +15,7 @@ function Modal({show, setShow, children, title}) {
                         <span className='modal_close' onClick={() => setShow(!show)}>x</span>
                     </div>
                     <div className="modal_content">
-                        <form className='form_wrapper'>{children}</form>
+                        <form className='form_wrapper' onSubmit={onSubmit}>{children}</form>
                     </div>
                 </div>
             </section>

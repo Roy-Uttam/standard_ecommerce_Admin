@@ -10,7 +10,7 @@ import './index.css';
 import App from './App';
 
 // base url for global use
-window.baseUrl = "https://asce.antopolis.xyz/api/";
+window.baseUrl = "http://asce.antopolis.xyz/api/";
 
 ReactDOM.render(
   <React.StrictMode>

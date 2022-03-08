@@ -25,6 +25,8 @@ import Variants from './Pages/ItemManagement/Variants';
 import VariantsValues from './Pages/ItemManagement/VariantsValues';
 
 function App() {
+  const userData = JSON.parse(localStorage.getItem("user"));
+
   return (
     <div className='container'>
       <div className="container_inner">
@@ -33,7 +35,7 @@ function App() {
         </div>
         <div className="right_panel">
           <Routes>
-            <Route path='/' element={<Home />} />
+            <Route path='/' element={<Home data={userData} />} />
             <Route path='/item' element={<Item />} />
             <Route path='/categories' element={<Categories/>} />
             <Route path='/variants' element={<Variants/>} />
