@@ -253,3 +253,8 @@ input:checked + .slider {
   margin: 0 auto;
   width: initial !important;
 }
+
+
+.dropify-wrapper .dropify-message p{
+  font-size: initial;
+}

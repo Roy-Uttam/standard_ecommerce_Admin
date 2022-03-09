@@ -13,8 +13,9 @@ import Modal from "../../CommonComponents/Modal/Modal"
 import ViewModal from '../../CommonComponents/Modal/ViewModal/ViewModal';
 import axios from 'axios';
 import { useForm } from "react-hook-form";
-// import 'dist/js/dropify.js';
-// import 'dist/css/dropify.css';
+import 'dropify/dist/js/dropify.js';
+import 'dropify/dist/css/dropify.css';
+import $ from 'jquery';
 
 export default function HeroSection() {
     // const [items] = useState(Data);
@@ -24,6 +25,8 @@ export default function HeroSection() {
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [show, setShow] = useState(false);
 
+
+    const [ViewData, setViewData] = useState([]);
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     // Item Modal 
@@ -44,7 +47,8 @@ export default function HeroSection() {
 
 
     const handleClick = () => {
-        setShow(!show)
+        setShow(!show);
+        $('.dropify').dropify();
     }
 
     const handleImageChange = (e) => {
@@ -88,9 +92,9 @@ export default function HeroSection() {
         if (data.image.length !== 0) {
 
             formData.append('image', image[0]);
-            axios.post('https://asce.antopolis.xyz/api/sliders', formData, config)
+            axios.post(`${window.baseUrl}sliders`, formData, config)
                 .then(res => {
-                    console.log(res)
+                    
                     if (res.status === 200 && res.data.status === true) {
                         
                         setHeroSliders([...Heroslider, res.data.data])
@@ -105,7 +109,7 @@ export default function HeroSection() {
         } else {
 
             formData.append('image', image[0]);
-            axios.post('https://asce.antopolis.xyz/api/sliders', formData, config)
+            axios.post(`${window.baseUrl}sliders`, formData, config)
                 .then(res => {
                     console.log(res)
                     if (res.status === 200 && res.data.status === true) {
@@ -122,6 +126,32 @@ export default function HeroSection() {
         setShow(!show)
 
     }
+
+
+    // View hero slider
+
+    const ViewSlider= (id) => {
+        // console.log(id)
+        fetch(`${window.baseUrl}sliders/${id}`)
+          .then((res) => {
+            if (res.status === 200) {
+              return res.json()
+            }
+            else {
+              throw new Error(res.status)
+            }
+          })
+          .then(data => {
+            setViewData(data.data)
+            setViewshow(!viewshow)
+          }
+          )
+          .catch((error) => {
+            console.log(error);
+          })
+          
+      }
+      
 
     // Pagination
 
@@ -154,7 +184,7 @@ export default function HeroSection() {
                     <div className="item_content">
                         <div className='item_element'>
                             <div className="item_element_buttons">
-                                <button className='item_element_button' onClick={() => setViewshow(!viewshow)}><img src={Visible} alt="Visible" /></button>
+                            <button className='item_element_button' onClick={() => ViewSlider(item.slider_id)}><img src={Visible} alt="Visible" /></button>
                                 <button className='item_element_button'><img src={Edit} alt="Delete" /></button>
                             </div>
                         </div>
@@ -252,12 +282,12 @@ export default function HeroSection() {
                 <div className='input_group'>
                     <div>
                         <label htmlFor="" className='input_field_label'>Image (Max 10)</label>
-                        <input {...register("image")} name="image" type="file" id='file' className="dropify" accept="image/*" data-max-file-size="5M" />
-                        <div className="label-holder">
-                            <label htmlFor="file" className="label">
+                        <input {...register("image")} name="image" type="file" className="dropify" accept="image/*" data-max-file-size="5M" />
+                        {/* <div className="label-holder">
+                            <label htmlFor="file">
                                 Upload Image
                             </label>
-                        </div>
+                        </div> */}
                         {/* <div className="result">{renderPhotos(selectedFiles)}</div> */}
                     </div>
                 </div>
@@ -278,51 +308,31 @@ export default function HeroSection() {
                         <div className="ulcol">
                             <div className="ulcol1">
                                 <li>
-                                    <p>Name</p>
-                                    <h6>Name 1</h6>
+                                    <p>Slider Id</p>
+                                    <h6>{ViewData.slider_id}</h6>
                                 </li>
                                 <li>
                                     <p>Description</p>
-                                    <h6>Description 1</h6>
+                                    <h6>{ViewData.description}</h6>
+                                    
                                 </li>
                                 <li>
-                                    <p>Price</p>
-                                    <h6>৳ Price</h6>
+                                    <p>Precedence</p>
+                                    <h6>{ViewData.precedence}</h6>
+                                </li>
+                                <li>
+                                    <p>Link</p>
+                                    <h6>{ViewData.link}</h6>
                                 </li>
                             </div>
-                            <div className="ulcol2">
-                                <li>
-                                    <p>Category</p>
-                                    <h6>Category 1</h6>
-                                </li>
-                                <li>
-                                    <p>Sub- Category</p>
-                                    <h6>Sub- Category 1</h6>
-                                </li>
-                                <li>
-                                    <p>Promotions</p>
-                                    <h6>Promotion 1</h6>
-                                </li>
-                            </div>
+                           
                         </div>
 
                         <li>
                             <h6 className='view_modal_imgtag'>Image</h6>
                             <div className="result">
                                 <div className="field_imglist">
-                                    <img className='input_img' src={Image} alt="thumbnail" />
-                                </div>
-                                <div className="field_imglist">
-                                    <img className='input_img' src={Image} alt="thumbnail" />
-                                </div>
-                                <div className="field_imglist">
-                                    <img className='input_img' src={Image} alt="thumbnail" />
-                                </div>
-                                <div className="field_imglist">
-                                    <img className='input_img' src={Image} alt="thumbnail" />
-                                </div>
-                                <div className="field_imglist">
-                                    <img className='input_img' src={Image} alt="thumbnail" />
+                                    <img className='input_img' src={ViewData.image} alt="thumbnail" />
                                 </div>
                             </div>
 
