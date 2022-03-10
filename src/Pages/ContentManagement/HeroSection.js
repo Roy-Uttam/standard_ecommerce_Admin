@@ -26,10 +26,13 @@ export default function HeroSection() {
   const [EditShow, setEditShow] = useState(false);
 
     const [ViewData, setViewData] = useState([]);
-    const [EditData, setEditData] = useState([]);
+    const [Editdescription, setEditDescription] = useState('');
+    const [EditLink, setEditLink] = useState('');
+    const [EditPrecedence, setEditPrecedence] = useState('');
+    const [EditImage, setEditImage] = useState('');
     const [sliderID, setEditDataid] = useState([]);
     
-    
+    console.log(EditImage)
     // const { register, handleSubmit, formState: { errors } } = useForm();
     const {
         register,
@@ -69,29 +72,6 @@ export default function HeroSection() {
         $('.dropify').dropify();
     }
 
-    // const handleImageChange = (e) => {
-    //     // console.log(e.target.files[])
-    //     if (e.target.files) {
-    //         const filesArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
-
-    //         // console.log("filesArray: ", filesArray);
-
-    //         setSelectedFiles((prevImages) => prevImages.concat(filesArray));
-    //         Array.from(e.target.files).map(
-    //             (file) => URL.revokeObjectURL(file) // avoid memory leak
-    //         );
-    //     }
-    // };
-
-    // const renderPhotos = (source) => {
-    //     // console.log('source: ', source);
-    //     return source.map((photo) => {
-    //         return <div className="field_imglist"><img className='input_img' src={photo} alt="" key={photo} /></div>;
-    //     });
-    // }
-
-
-
     // ADD FORM OPERATION
     const onCreate = data => {
 
@@ -102,7 +82,6 @@ export default function HeroSection() {
                 'content-type': 'multipart/form-data'
             }
         }
-
         var formData = new FormData()
         formData.append('description', data.description);
         formData.append('link', data.link);
@@ -116,7 +95,7 @@ export default function HeroSection() {
                     
                     if (res.status === 200 && res.data.status === true) {
                         
-                        setHeroSliders([...Heroslider, res.data.data])
+                        setHeroSliders([res.data.data, ...Heroslider])
 
                     } else {
                         console.log('error');
@@ -133,7 +112,7 @@ export default function HeroSection() {
                     console.log(res)
                     if (res.status === 200 && res.data.status === true) {
                         
-                        setHeroSliders([...Heroslider, res.data.data])
+                        setHeroSliders([res.data.data, ...Heroslider])
                     } else {
                         console.log('error');
                     }
@@ -174,9 +153,11 @@ export default function HeroSection() {
                     
                     if (res.status === 200 && res.data.status === true) {
                         console.log(res.data.data)
-                    //   this.setState({ Heroslider });
+                    //   this.setState({ Heroslider })let sortdata = ([...Heroslider.filter((heroslider) => heroslider.slider_id !== sliderID), res.data.data])
+                        // let sortdata1 =sortdata.sort((a,b)=>a.slider_id-b.slider_id)
+                        // setHeroSliders(sortdata1);
 
-                        setHeroSliders([...Heroslider.filter((heroslider) => heroslider.slider_id !== sliderID), res.data.data])
+                        setHeroSliders([ res.data.data,...Heroslider.filter((heroslider) => heroslider.slider_id !== sliderID)])
                         console.log(Heroslider)
                     } else {
                         console.log('error');
@@ -193,7 +174,7 @@ export default function HeroSection() {
                     console.log(res)
                     if (res.status === 200 && res.data.status === true) {
                         console.log(res.data.data)
-                        setHeroSliders([...Heroslider.filter((heroslider) => heroslider.slider_id !== sliderID), res.data.data])
+                        setHeroSliders([res.data.data,...Heroslider.filter((heroslider) => heroslider.slider_id !== sliderID)])
                         console.log(Heroslider)
                     } else {
                         console.log('error');
@@ -246,7 +227,10 @@ export default function HeroSection() {
           .then(data => {
             $('.dropify').dropify();
             setEditDataid(data.data.slider_id)
-            setEditData(data.data)
+            setEditDescription(data.data.description)
+            setEditLink(data.data.link)
+            setEditPrecedence(data.data.precedence)
+            setEditImage(data.data.image)
             setEditShow(true)
 
 
@@ -257,7 +241,7 @@ export default function HeroSection() {
           })
           
       }
-
+// console.log(EditData)
 
     // Pagination
 
@@ -404,27 +388,28 @@ export default function HeroSection() {
                 </Modal>
 
 
-            {/* add item modal */}
+            {/* Edit item modal */}
             <Modal key={2} show={EditShow} setShow={setEditShow} onSubmit={handleSubmit2(onUpdate)} title={"Add new Hero-slider"}>
                 <div className='input_group'>
                     <label htmlFor="" className='input_field_label'>Description</label>
-                    <input className='input_field' {...register2("description")} name="description" type="text" placeholder="description" />
+                    <input className='input_field' {...register2("description")} name="description" defaultValue={Editdescription} type="text" placeholder="description" />
                 </div>
+                {errors.description && <span className="errorMessage">You must specify your name</span>}
 
                 <div className='input_group'>
                     <label htmlFor="" className='input_field_label'>Link</label>
-                    <input className='input_field' {...register2("link")} name="link" type="text" placeholder="link" />
+                    <input className='input_field' {...register2("link")} name="link" defaultValue={EditLink}  type="text" placeholder="link" />
                 </div>
                 
                 <div className='input_group'>
                     <label htmlFor="" className='input_field_label'>Precedence</label>
-                    <input className='input_field' {...register2("precedence")} name="precedence" type="text" placeholder="precedence" />
+                    <input className='input_field' {...register2("precedence")} name="precedence" defaultValue={EditPrecedence} type="text" placeholder="precedence" />
                 </div>
                 
                 <div className='input_group'>
                     <div>
                         <label htmlFor="" className='input_field_label'>Image (Max 10)</label>
-                        <input {...register2("image")} name="image" type="file" className="dropify" accept="image/*" data-max-file-size="5M" />
+                        <input {...register2("image")} name="image" data-default-file={EditImage} type="file" className="dropify" accept="image/*" data-max-file-size="5M" />
                         
                     </div>
                 </div>
