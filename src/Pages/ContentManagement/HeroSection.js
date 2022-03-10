@@ -30,8 +30,22 @@ export default function HeroSection() {
     const [sliderID, setEditDataid] = useState([]);
     
     
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    // const { register, handleSubmit, formState: { errors } } = useForm();
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+      } = useForm({
+        mode: "onBlur",
+      });
     
+      const {
+        register: register2,
+        formState: { errors: errors2 },
+        handleSubmit: handleSubmit2,
+      } = useForm({
+        mode: "onBlur",
+      });
     
     // Item Modal 
 
@@ -134,7 +148,64 @@ export default function HeroSection() {
 
     // update function
 
-   
+    const onUpdate = data => {
+
+
+        // console.log(data)
+        // console.log(sliderID);
+        let image = data.image.length === 0 ? '' : data.image;
+        let config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        }
+
+        var formData = new FormData()
+        formData.append('description', data.description);
+        formData.append('_method', "PUT");
+        formData.append('link', data.link);
+        formData.append('precedence', data.precedence);
+
+        if (data.image.length !== 0) {
+
+            formData.append('image', image[0]);
+            axios.post(`${window.baseUrl}sliders/${sliderID}`, formData, config)
+                .then(res => {
+                    
+                    if (res.status === 200 && res.data.status === true) {
+                        console.log(res.data.data)
+                    //   this.setState({ Heroslider });
+
+                        setHeroSliders([...Heroslider.filter((heroslider) => heroslider.slider_id !== sliderID), res.data.data])
+                        console.log(Heroslider)
+                    } else {
+                        console.log('error');
+                    }
+                })
+                .catch(error => {
+                    console.log('error');
+                })
+        } else {
+
+            formData.append('image', image[0]);
+            axios.post(`${window.baseUrl}sliders/${sliderID}`, formData, config)
+                .then(res => {
+                    console.log(res)
+                    if (res.status === 200 && res.data.status === true) {
+                        console.log(res.data.data)
+                        setHeroSliders([...Heroslider.filter((heroslider) => heroslider.slider_id !== sliderID), res.data.data])
+                        console.log(Heroslider)
+                    } else {
+                        console.log('error');
+                    }
+                })
+                .catch(error => {
+                    console.log('error');
+                })
+        }
+        setEditShow(!EditShow)
+
+    }
     
     // View hero slider
 
@@ -333,7 +404,41 @@ export default function HeroSection() {
                 </Modal>
 
 
-           
+            {/* add item modal */}
+            <Modal key={2} show={EditShow} setShow={setEditShow} onSubmit={handleSubmit2(onUpdate)} title={"Add new Hero-slider"}>
+                <div className='input_group'>
+                    <label htmlFor="" className='input_field_label'>Description</label>
+                    <input className='input_field' {...register2("description")} name="description" type="text" placeholder="description" />
+                </div>
+
+                <div className='input_group'>
+                    <label htmlFor="" className='input_field_label'>Link</label>
+                    <input className='input_field' {...register2("link")} name="link" type="text" placeholder="link" />
+                </div>
+                
+                <div className='input_group'>
+                    <label htmlFor="" className='input_field_label'>Precedence</label>
+                    <input className='input_field' {...register2("precedence")} name="precedence" type="text" placeholder="precedence" />
+                </div>
+                
+                <div className='input_group'>
+                    <div>
+                        <label htmlFor="" className='input_field_label'>Image (Max 10)</label>
+                        <input {...register2("image")} name="image" type="file" className="dropify" accept="image/*" data-max-file-size="5M" />
+                        
+                    </div>
+                </div>
+                <div className="input_contents">
+                    <div className="input_group">
+                        <button type='button' className='cancel' onClick={() => setEditShow(!EditShow)}>CANCEL</button>
+                    </div>
+                    <div className="input_group">
+                    <button type="submit" className="submit">Submit
+                        </button>
+                    </div>
+                </div>
+                </Modal>
+
 
 
             <ViewModal viewshow={viewshow} setViewshow={setViewshow}>
