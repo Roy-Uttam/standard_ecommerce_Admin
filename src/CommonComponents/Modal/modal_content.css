@@ -232,6 +232,7 @@ input[type="radio"] {
   font-weight: normal;
   font-size: 1.3671875vh;
   line-height: 1.7578125vh;
+  width: 100%;
   cursor: pointer;
 }
 
@@ -300,7 +301,7 @@ input[type="radio"] {
 .pd_info_view ul li h6 {
   font-weight: normal;
   font-size: 1.7578125vh;
-  line-height: 1.7578125vh;
+  line-height: 2.34375vh;
   color: #1e1e1e;
 }
 .pd_info_view .view_modal_imgtag {
@@ -333,6 +334,14 @@ input[type="radio"] {
   display: flex;
   justify-content: space-between;
   margin-bottom: 3.90625vh;
+}
+.pd_info_view .ulcol1{
+  flex: 0 0 auto;
+  width: auto;
+}
+.pd_info_view .ulcol2{
+  flex: 0 0 auto;
+  width: auto;
 }
 /* .pd_info_view .ulcol .ulcol1,
 .pd_info_view .ulcol .ulcol2{

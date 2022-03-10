@@ -21,18 +21,20 @@ export default function HeroSection() {
     // const [items] = useState(Data);
     const [viewshow, setViewshow] = useState(false);
     const [pageNumber, setPageNumber] = useState(0);
-    
-  const [show, setShow] = useState(false);
-  const [EditShow, setEditShow] = useState(false);
+
+    const [selectedFiles, setSelectedFiles] = useState([]);
+    const [show, setShow] = useState(false);
+
+    // const [EditShow, setEditShow] = useState(false);
+    const [EditShow, setEditShow] = useState(false);
 
     const [ViewData, setViewData] = useState([]);
     const [EditData, setEditData] = useState([]);
-    const [sliderID, setEditDataid] = useState([]);
+    const [des, setdesc] = useState([]);
     
     
     const { register, handleSubmit, formState: { errors } } = useForm();
-    
-    
+
     // Item Modal 
 
     // Hero slider retrive data from api
@@ -55,33 +57,32 @@ export default function HeroSection() {
         $('.dropify').dropify();
     }
 
-    // const handleImageChange = (e) => {
-    //     // console.log(e.target.files[])
-    //     if (e.target.files) {
-    //         const filesArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
+    const handleImageChange = (e) => {
+        // console.log(e.target.files[])
+        if (e.target.files) {
+            const filesArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
 
-    //         // console.log("filesArray: ", filesArray);
+            // console.log("filesArray: ", filesArray);
 
-    //         setSelectedFiles((prevImages) => prevImages.concat(filesArray));
-    //         Array.from(e.target.files).map(
-    //             (file) => URL.revokeObjectURL(file) // avoid memory leak
-    //         );
-    //     }
-    // };
+            setSelectedFiles((prevImages) => prevImages.concat(filesArray));
+            Array.from(e.target.files).map(
+                (file) => URL.revokeObjectURL(file) // avoid memory leak
+            );
+        }
+    };
 
-    // const renderPhotos = (source) => {
-    //     // console.log('source: ', source);
-    //     return source.map((photo) => {
-    //         return <div className="field_imglist"><img className='input_img' src={photo} alt="" key={photo} /></div>;
-    //     });
-    // }
+    const renderPhotos = (source) => {
+        // console.log('source: ', source);
+        return source.map((photo) => {
+            return <div className="field_imglist"><img className='input_img' src={photo} alt="" key={photo} /></div>;
+        });
+    }
 
 
 
     // ADD FORM OPERATION
     const onCreate = data => {
 
-        // console.log(data)
         let image = data.image.length === 0 ? '' : data.image;
         let config = {
             headers: {
@@ -90,14 +91,15 @@ export default function HeroSection() {
         }
 
         var formData = new FormData()
-        formData.append('description', data.description);
+        formData.append('_method', data._method);
+                formData.append('description', data.description);
         formData.append('link', data.link);
         formData.append('precedence', data.precedence);
 
         if (data.image.length !== 0) {
 
             formData.append('image', image[0]);
-            axios.post(`${window.baseUrl}sliders`, formData, config)
+            axios.post(`${window.baseUrl}sliders/1`, formData, config)
                 .then(res => {
                     
                     if (res.status === 200 && res.data.status === true) {
@@ -114,7 +116,63 @@ export default function HeroSection() {
         } else {
 
             formData.append('image', image[0]);
-            axios.post(`${window.baseUrl}sliders`, formData, config)
+            axios.post(`${window.baseUrl}sliders/1`, formData, config)
+                .then(res => {
+                    console.log(res)
+                    if (res.status === 200 && res.data.status === true) {
+                        
+                        setHeroSliders([...Heroslider, res.data.data])
+                    } else {
+                        console.log('error');
+                    }
+                })
+                .catch(error => {
+                    console.log('error');
+                })
+        }
+        setShow(!show)
+
+    }
+    const onUpdate = data => {
+
+        console.log(data._method)
+        console.log(data.precedence)
+        console.log(data.image)
+        let image = data.image.length === 0 ? '' : data.image;
+        let config = {
+            headers: {
+                
+                'content-type': 'multipart/form-data'
+            }
+        }
+
+        var formData = new FormData()
+        formData.append('_method', data._method);
+        formData.append('description', data.description);
+        formData.append('link', data.link);
+        formData.append('precedence', data.precedence);
+
+        if (data.image.length !== 0) {
+
+            formData.append('image', image[0]);
+            axios.post(`${window.baseUrl}sliders/1`, formData, config)
+                .then(res => {
+                    
+                    if (res.status === 200 && res.data.status === true) {
+                        
+                        setHeroSliders([...Heroslider, res.data.data])
+
+                    } else {
+                        console.log('error');
+                    }
+                })
+                .catch(error => {
+                    console.log('error');
+                })
+        } else {
+
+            formData.append('image', image[0]);
+            axios.post(`${window.baseUrl}sliders/1`, formData, config)
                 .then(res => {
                     console.log(res)
                     if (res.status === 200 && res.data.status === true) {
@@ -132,10 +190,7 @@ export default function HeroSection() {
 
     }
 
-    // update function
 
-   
-    
     // View hero slider
 
     const ViewSlider= (id) => {
@@ -161,24 +216,43 @@ export default function HeroSection() {
       }
       
 
+    //   const editcategory= async (id) => {
+          
+    //     // console.log(id)
+    //     // await fetch(`${window.baseUrl}sliders/${id}`)
+    //     axios.get(`${window.baseUrl}sliders/${id}`)
+    //     .then(res => {
+    //         console.log(res)
+    //         if (res.status === 200 && res.data.status === true) {
+                
+    //             setEditData(res.data.data)
+    //         } else {
+    //             console.log('error');
+    //         }
+    //     })
+    //     .catch(error => {
+    //         console.log('error');
+    //     })
+    //   }
+
       const editcategory= async (id) => {
-        console.log(id)
+        // console.log(id)
         await fetch(`${window.baseUrl}sliders/${id}`)
           .then((res) => {
             if (res.status === 200) {
-              return res.json()
+                $('.dropify').dropify();
+            //   return res.json();
+              
             }
             else {
               throw new Error(res.status)
             }
           })
           .then(data => {
-            $('.dropify').dropify();
-            setEditDataid(data.data.slider_id)
-            setEditData(data.data)
+           
+            // console.log(data.data.description)
+            setdesc(data.data.slider_id)
             setEditShow(true)
-
-
           }
           )
           .catch((error) => {
@@ -187,7 +261,7 @@ export default function HeroSection() {
           
       }
 
-
+    //   console.log(EditData)
     // Pagination
 
     const itemsPerPage = 5;
@@ -298,12 +372,15 @@ export default function HeroSection() {
             </div>
 
             {/* add item modal */}
-            <Modal key={1} show={show} onSubmit={handleSubmit(onCreate)} setShow={setShow} title={"Add new Hero-slider"}>
+            <Modal show={show} onSubmit={handleSubmit(onCreate)} setShow={setShow} title={"Add new Hero-slider"}>
                 <div className='input_group'>
                     <label htmlFor="" className='input_field_label'>Description</label>
                     <input className='input_field' {...register("description")} name="description" type="text" placeholder="description" />
                 </div>
-
+                <div className='input_group'>
+                    <label htmlFor="" className='input_field_label'>Description</label>
+                    <input className='input_field' {...register("_method")} name="_method" value= "PUT" type="text" placeholder="description" />
+                </div>
                 <div className='input_group'>
                     <label htmlFor="" className='input_field_label'>Link</label>
                     <input className='input_field' {...register("link")} name="link" type="text" placeholder="link" />
@@ -333,8 +410,46 @@ export default function HeroSection() {
                 </Modal>
 
 
-           
+            {/* Edit item modal */}
+            <form onSubmit={handleSubmit(onUpdate)}>
+            {/* <Modal show={EditShow} setShow={setEditShow} onSubmit={handleSubmit(onUpdate)} title={"Edit Hero-slider"}> */}
+                <div className='input_group'>
+                    <label htmlFor="" className='input_field_label'>Description</label>
+                    <input className='input_field' {...register("_method")} name="_method" value= "PUT" type="text" placeholder="description" />
+                </div>
+                <div className='input_group'>
+                    <label htmlFor="" className='input_field_label'>Description</label>
+                    <input className='input_field' {...register("description")} name="description" type="text" placeholder="description" />
+                </div>
 
+                <div className='input_group'>
+                    <label htmlFor="" className='input_field_label'>Link</label>
+                    <input className='input_field' {...register("link")} name="link" type="text" placeholder="link" />
+                </div>
+                
+                <div className='input_group'>
+                    <label htmlFor="" className='input_field_label'>Precedence</label>
+                    <input className='input_field' {...register("precedence")} name="precedence" type="text" placeholder="precedence" />
+                </div>
+                
+                <div className='input_group'>
+                    <div>
+                        <label htmlFor="" className='input_field_label'>Image (Max 10)</label>
+                        <input {...register("image")} name="image" type="file" className="dropify" accept="image/*" data-max-file-size="5M" />
+                        
+                </div>
+                </div>
+                <div className="input_contents">
+                    <div className="input_group">
+                        <button type='button' className='cancel' onClick={() => setEditShow(!EditShow)}>CANCEL</button>
+                    </div>
+                    <div className="input_group">
+                    <button type="submit" className="submit">Submit
+                        </button>
+                    </div>
+                </div>
+                </form>
+                {/* </Modal> */}
 
             <ViewModal viewshow={viewshow} setViewshow={setViewshow}>
                 <div className='delivery_address_view pd_info_view'>
