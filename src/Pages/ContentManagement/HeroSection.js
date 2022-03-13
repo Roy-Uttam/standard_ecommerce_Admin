@@ -1,15 +1,13 @@
 import React, {useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ReactPagination from 'react-paginate';
-import Header from '../../AllPagesComponents/Header/Header'
-import "../Body.css"
+import Header from '../../AllPagesComponents/Header/Header';
+import "../Body.css";
 import Visible from "../../Assets/Icons/visibility-black.svg"
-import Edit from "../../Assets/Icons/edit-black.svg"
-import Data from "../../Assets/Items.json"
-import Image from "../../Assets/Icons/icon.svg"
+import Edit from "../../Assets/Icons/edit-black.svg";
 import AddButton from '../../CommonComponents/Buttons/AddButton';
 import Search from '../../CommonComponents/Search';
-import Modal from "../../CommonComponents/Modal/Modal"
+import Modal from "../../CommonComponents/Modal/Modal";
 import ViewModal from '../../CommonComponents/Modal/ViewModal/ViewModal';
 import axios from 'axios';
 import { useForm } from "react-hook-form";
@@ -17,40 +15,39 @@ import 'dropify/dist/js/dropify.js';
 import 'dropify/dist/css/dropify.css';
 import $ from 'jquery';
 
+
 export default function HeroSection() {
-    // const [items] = useState(Data);
     const [viewshow, setViewshow] = useState(false);
     const [pageNumber, setPageNumber] = useState(0);
     
-  const [show, setShow] = useState(false);
-  const [EditShow, setEditShow] = useState(false);
+    const [show, setShow] = useState(false);
+    const [EditShow, setEditShow] = useState(false);
 
     const [ViewData, setViewData] = useState([]);
+    const [editd, seteditd] = useState([]);
     const [Editdescription, setEditDescription] = useState('');
     const [EditLink, setEditLink] = useState('');
     const [EditPrecedence, setEditPrecedence] = useState('');
     const [EditImage, setEditImage] = useState('');
     const [sliderID, setEditDataid] = useState([]);
+    // const [error1, seterror1] = useState({});
     
-    console.log(EditImage)
-    // const { register, handleSubmit, formState: { errors } } = useForm();
     const {
-        register,
+        register: registerCreate,
         formState: { errors },
-        handleSubmit,
+        handleSubmit: handleSubmitCreate,
       } = useForm({
         mode: "onBlur",
       });
     
       const {
-        register: register2,
+        register: registerUpdate,
+        reset,
         formState: { errors: errors2 },
-        handleSubmit: handleSubmit2,
+        handleSubmit: handleSubmitUpdate,
       } = useForm({
         mode: "onBlur",
       });
-    
-    // Item Modal 
 
     // Hero slider retrive data from api
     const [Heroslider , setHeroSliders] = useState([]);
@@ -59,23 +56,44 @@ export default function HeroSection() {
         .then(res => {
             if (res.status === 200 && res.data.status === true) {
                 setHeroSliders(res.data.data);
-            } 
+            }
         })
         .catch(error => {
             console.log('error')
         })
       }, [])
 
-
     const handleClick = () => {
         setShow(!show);
         $('.dropify').dropify();
     }
 
+     // View hero slider
+
+     const ViewSlider= (id) => {
+        fetch(`${window.baseUrl}sliders/${id}`)
+          .then((res) => {
+            if (res.status === 200) {
+              return res.json()
+            }
+            else {
+              throw new Error(res.status)
+            }
+          })
+          .then(data => {
+            setViewData(data.data)
+            setViewshow(!viewshow)
+          }
+          )
+          .catch((error) => {
+            console.log(error);
+          })
+      }
+      
+      
     // ADD FORM OPERATION
     const onCreate = data => {
 
-        // console.log(data)
         let image = data.image.length === 0 ? '' : data.image;
         let config = {
             headers: {
@@ -122,98 +140,13 @@ export default function HeroSection() {
                 })
         }
         setShow(!show)
+        
 
     }
 
-    // update function
 
-    const onUpdate = data => {
-
-
-        // console.log(data)
-        // console.log(sliderID);
-        let image = data.image.length === 0 ? '' : data.image;
-        let config = {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        }
-
-        var formData = new FormData()
-        formData.append('description', data.description);
-        formData.append('_method', "PUT");
-        formData.append('link', data.link);
-        formData.append('precedence', data.precedence);
-
-        if (data.image.length !== 0) {
-
-            formData.append('image', image[0]);
-            axios.post(`${window.baseUrl}sliders/${sliderID}`, formData, config)
-                .then(res => {
-                    
-                    if (res.status === 200 && res.data.status === true) {
-                        console.log(res.data.data)
-                    //   this.setState({ Heroslider })let sortdata = ([...Heroslider.filter((heroslider) => heroslider.slider_id !== sliderID), res.data.data])
-                        // let sortdata1 =sortdata.sort((a,b)=>a.slider_id-b.slider_id)
-                        // setHeroSliders(sortdata1);
-
-                        setHeroSliders([ res.data.data,...Heroslider.filter((heroslider) => heroslider.slider_id !== sliderID)])
-                        console.log(Heroslider)
-                    } else {
-                        console.log('error');
-                    }
-                })
-                .catch(error => {
-                    console.log('error');
-                })
-        } else {
-
-            formData.append('image', image[0]);
-            axios.post(`${window.baseUrl}sliders/${sliderID}`, formData, config)
-                .then(res => {
-                    console.log(res)
-                    if (res.status === 200 && res.data.status === true) {
-                        console.log(res.data.data)
-                        setHeroSliders([res.data.data,...Heroslider.filter((heroslider) => heroslider.slider_id !== sliderID)])
-                        console.log(Heroslider)
-                    } else {
-                        console.log('error');
-                    }
-                })
-                .catch(error => {
-                    console.log('error');
-                })
-        }
-        setEditShow(!EditShow)
-
-    }
-    
-    // View hero slider
-
-    const ViewSlider= (id) => {
-        // console.log(id)
-        fetch(`${window.baseUrl}sliders/${id}`)
-          .then((res) => {
-            if (res.status === 200) {
-              return res.json()
-            }
-            else {
-              throw new Error(res.status)
-            }
-          })
-          .then(data => {
-            setViewData(data.data)
-            setViewshow(!viewshow)
-          }
-          )
-          .catch((error) => {
-            console.log(error);
-          })
-          
-      }
-      
-
-      const editcategory= async (id) => {
+    // Edit function
+    const editSlider= async (id) => {
         console.log(id)
         await fetch(`${window.baseUrl}sliders/${id}`)
           .then((res) => {
@@ -226,13 +159,15 @@ export default function HeroSection() {
           })
           .then(data => {
             $('.dropify').dropify();
+            reset();
             setEditDataid(data.data.slider_id)
-            setEditDescription(data.data.description)
-            setEditLink(data.data.link)
-            setEditPrecedence(data.data.precedence)
-            setEditImage(data.data.image)
-            setEditShow(true)
+            seteditd(data.data)
 
+            // setEditDescription(data.data.description)
+            // setEditLink(data.data.link)
+            // setEditPrecedence(data.data.precedence)
+            // setEditImage(data.data.image)
+            setEditShow(true)
 
           }
           )
@@ -241,8 +176,119 @@ export default function HeroSection() {
           })
           
       }
-// console.log(EditData)
 
+    // update function
+    const onUpdate = data => {
+        // if(
+        //     !editd.description ||
+        //     !editd.link ||
+        //     !editd.precedence ||
+        //     !editd.image 
+        // ){
+        //     seterror({
+        //         description: !editd.description ? true : false,
+        //         link: !editd.link ? true : false,
+        //         precedence: ! editd.precedence? true : false,
+        //         image: !editd.image ? true : false,
+               
+        // })}
+        // else{
+            let image = data.image.length === 0 ? '' : data.image;
+            let config = {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            }
+    
+            var formData = new FormData()
+            formData.append('description', data.description);
+            formData.append('_method', "PUT");
+            formData.append('link', data.link);
+            formData.append('precedence', data.precedence);
+    
+            // if (data.image.length !== 0) {
+    
+                formData.append('image', image[0]);
+            axios.post(`${window.baseUrl}sliders/${sliderID}`, formData, config)
+                .then(res => {
+                    if (res.status === 200 && res.data.status === true) {
+                        console.log(res.data.data)
+                        setHeroSliders([ res.data.data,...Heroslider.filter((heroslider) => heroslider.slider_id !== sliderID)])
+                        console.log(Heroslider)
+                        
+                    } else {
+                        console.log('error');
+                    }
+                })
+                .catch(error => {
+                    console.log('error');
+                })
+        // }
+
+        // console.log(data.image.length)
+        // let image = data.image.length === 0 ? '' : data.image;
+        // let config = {
+        //     headers: {
+        //         'content-type': 'multipart/form-data'
+        //     }
+        // }
+
+        // var formData = new FormData()
+        // formData.append('description', data.description);
+        // formData.append('_method', "PUT");
+        // formData.append('link', data.link);
+        // formData.append('precedence', data.precedence);
+
+        // // if (data.image.length !== 0) {
+
+        //     formData.append('image', image[0]);
+        // axios.post(`${window.baseUrl}sliders/${sliderID}`, formData, config)
+        //     .then(res => {
+        //         if (res.status === 200 && res.data.status === true) {
+        //             console.log(res.data.data)
+        //             setHeroSliders([ res.data.data,...Heroslider.filter((heroslider) => heroslider.slider_id !== sliderID)])
+        //             console.log(Heroslider)
+                    
+        //         } else {
+        //             console.log('error');
+        //         }
+        //     })
+        //     .catch(error => {
+        //         console.log('error');
+        //     })
+
+
+           
+        // } else {
+
+        //     formData.append('image', image[0]);
+        //     axios.post(`${window.baseUrl}sliders/${sliderID}`, formData, config)
+        //         .then(res => {
+        //             console.log(res)
+        //             if (res.status === 200 && res.data.status === true) {
+        //                 console.log(res.data.data)
+        //                 setHeroSliders([res.data.data,...Heroslider.filter((heroslider) => heroslider.slider_id !== sliderID)])
+        //                 console.log(Heroslider)
+        //             } else {
+        //                 console.log('error');
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.log('error');
+        //         })
+        // }
+
+        
+
+        setEditShow(!EditShow)
+        // data.reset();
+        // setEditDescription('')
+        // setEditLink('')
+        // setEditPrecedence('')
+        // setEditImage('')
+
+    }
+    
     // Pagination
 
     const itemsPerPage = 5;
@@ -275,14 +321,13 @@ export default function HeroSection() {
                         <div className='item_element'>
                             <div className="item_element_buttons">
                             <button className='item_element_button' onClick={() => ViewSlider(item.slider_id)}><img src={Visible} alt="Visible" /></button>
-                            <button className='item_element_button'onClick={()=>editcategory(item.slider_id)} ><img src={Edit} alt="Edit" /></button>
+                            <button className='item_element_button'onClick={()=>editSlider(item.slider_id)} ><img src={Edit} alt="Edit" /></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         })
-
 
     return (
         <>
@@ -330,7 +375,6 @@ export default function HeroSection() {
 
                         {displayitems}
 
-
                         <div className="items_contents_paginate">
                             <ReactPagination
                                 previousLabel={"Previous"}
@@ -353,28 +397,33 @@ export default function HeroSection() {
             </div>
 
             {/* add item modal */}
-            <Modal key={1} show={show} onSubmit={handleSubmit(onCreate)} setShow={setShow} title={"Add new Hero-slider"}>
+            <Modal key={1} show={show} onSubmit={handleSubmitCreate(onCreate)} setShow={setShow} title={"Add new Hero-slider"}>
                 <div className='input_group'>
                     <label htmlFor="" className='input_field_label'>Description</label>
-                    <input className='input_field' {...register("description")} name="description" type="text" placeholder="description" />
+                    <input className='input_field' {...registerCreate("description", { required: true })} name="description" type="text" placeholder="description" />
                 </div>
+                {errors.description && <span className="errorMessage">You must specify Description</span>}
 
                 <div className='input_group'>
                     <label htmlFor="" className='input_field_label'>Link</label>
-                    <input className='input_field' {...register("link")} name="link" type="text" placeholder="link" />
+                    <input className='input_field' {...registerCreate("link",{ required: true })} name="link" type="text" placeholder="link" />
                 </div>
-                
+                {errors.link && <span className="errorMessage">You must specify Link</span>}
+
                 <div className='input_group'>
                     <label htmlFor="" className='input_field_label'>Precedence</label>
-                    <input className='input_field' {...register("precedence")} name="precedence" type="text" placeholder="precedence" />
+                    <input className='input_field' {...registerCreate("precedence",{ required: true })} name="precedence" type="text" placeholder="precedence" />
                 </div>
+                {errors.precedence && <span className="errorMessage">You must specify Precedence</span>}
                 
                 <div className='input_group'>
                     <div>
                         <label htmlFor="" className='input_field_label'>Image (Max 10)</label>
-                        <input {...register("image")} name="image" type="file" className="dropify" accept="image/*" data-max-file-size="5M" />
+                        <input {...registerCreate("image",{ required: true })} name="image" type="file" className="dropify" accept="image/*" data-max-file-size="5M" />
                         
                     </div>
+                    {errors.image && <span className="errorMessage">Please Insert Image</span>}
+
                 </div>
                 <div className="input_contents">
                     <div className="input_group">
@@ -387,32 +436,36 @@ export default function HeroSection() {
                 </div>
                 </Modal>
 
-
             {/* Edit item modal */}
-            <Modal key={2} show={EditShow} setShow={setEditShow} onSubmit={handleSubmit2(onUpdate)} title={"Add new Hero-slider"}>
+            <Modal key={2} show={EditShow} setShow={setEditShow} onReset={reset} onSubmit={handleSubmitUpdate(onUpdate)} title={"Edit Heroslider"}>
                 <div className='input_group'>
                     <label htmlFor="" className='input_field_label'>Description</label>
-                    <input className='input_field' {...register2("description")} name="description" defaultValue={Editdescription} type="text" placeholder="description" />
+                    <input className='input_field' {...registerUpdate("description", { required: true })} defaultValue={editd.description} name="description"  type="text" placeholder="description" />
                 </div>
-                {errors.description && <span className="errorMessage">You must specify your name</span>}
+                {errors2.description && <span className="errorMessage">You must specify description</span>}
 
                 <div className='input_group'>
                     <label htmlFor="" className='input_field_label'>Link</label>
-                    <input className='input_field' {...register2("link")} name="link" defaultValue={EditLink}  type="text" placeholder="link" />
+                    <input className='input_field' {...registerUpdate("link", { required: true })} name="link" defaultValue={editd.link}  type="text" placeholder="link" />
                 </div>
+
+                {errors2.link && <span className="errorMessage">You must specify link</span>}
                 
                 <div className='input_group'>
                     <label htmlFor="" className='input_field_label'>Precedence</label>
-                    <input className='input_field' {...register2("precedence")} name="precedence" defaultValue={EditPrecedence} type="text" placeholder="precedence" />
+                    <input className='input_field' {...registerUpdate("precedence", { required: true })} name="precedence" defaultValue={editd.precedence} type="text" placeholder="precedence" />
                 </div>
+                {errors2.precedence && <span className="errorMessage">You must specify Precedence</span>}
                 
                 <div className='input_group'>
                     <div>
                         <label htmlFor="" className='input_field_label'>Image (Max 10)</label>
-                        <input {...register2("image")} name="image" data-default-file={EditImage} type="file" className="dropify" accept="image/*" data-max-file-size="5M" />
+                        <input {...registerUpdate("image", { required: true })} name="image" defaultValue={editd.image} type="file" className="dropify" accept="image/*" data-max-file-size="5M" />
                         
                     </div>
                 </div>
+                {errors2.image && <span className="errorMessage">Please Insert Image</span>}
+
                 <div className="input_contents">
                     <div className="input_group">
                         <button type='button' className='cancel' onClick={() => setEditShow(!EditShow)}>CANCEL</button>
@@ -423,8 +476,6 @@ export default function HeroSection() {
                     </div>
                 </div>
                 </Modal>
-
-
 
             <ViewModal viewshow={viewshow} setViewshow={setViewshow}>
                 <div className='delivery_address_view pd_info_view'>

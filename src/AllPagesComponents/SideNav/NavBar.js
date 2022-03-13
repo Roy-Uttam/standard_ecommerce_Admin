@@ -21,6 +21,9 @@ function NavBar() {
             <Link to='/hero-section' className='nav_link'>Hero Section</Link>
           </li>
           <li className="sub_nav_item">
+            <Link to='/offer-slider' className='nav_link'>Offer Slider</Link>
+          </li>
+          <li className="sub_nav_item">
             <Link to='/top-category' className='nav_link'>Top Category</Link>
           </li>
           <li className="sub_nav_item">

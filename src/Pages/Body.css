@@ -258,3 +258,6 @@ input:checked + .slider {
 .dropify-wrapper .dropify-message p{
   font-size: initial;
 }
+.errorMessage{
+  color: rgb(209, 3, 3);
+}

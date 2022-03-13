@@ -5,46 +5,59 @@ import Header from '../../AllPagesComponents/Header/Header'
 import "../Body.css"
 import Visible from "../../Assets/Icons/visibility-black.svg"
 import Edit from "../../Assets/Icons/edit-black.svg"
-import Data from "../../Assets/Items.json"
-import Image from "../../Assets/Icons/icon.svg"
+import Delete from "../../Assets/Icons/delete-black.svg"
 import AddButton from '../../CommonComponents/Buttons/AddButton';
 import Search from '../../CommonComponents/Search';
 import Modal from "../../CommonComponents/Modal/Modal"
 import ViewModal from '../../CommonComponents/Modal/ViewModal/ViewModal';
+
 import axios from 'axios';
 import { useForm } from "react-hook-form";
 import 'dropify/dist/js/dropify.js';
 import 'dropify/dist/css/dropify.css';
 import $ from 'jquery';
 
-export default function HeroSection() {
-    // const [items] = useState(Data);
-    const [viewshow, setViewshow] = useState(false);
-    const [pageNumber, setPageNumber] = useState(0);
 
-    const [selectedFiles, setSelectedFiles] = useState([]);
+export default function OfferSlider() {
+
+    const [pageNumber, setPageNumber] = useState(0);
+    const [ViewData, setViewData] = useState([]);
+    const [viewshow, setViewshow] = useState(false);
+    const [OfferSliderID, setEditID] = useState([]);
+    const [EditData, setEditData] = useState([]);
+    const [EditShow, setEditShow] = useState(false);
     const [show, setShow] = useState(false);
 
-    // const [EditShow, setEditShow] = useState(false);
-    const [EditShow, setEditShow] = useState(false);
 
-    const [ViewData, setViewData] = useState([]);
-    const [EditData, setEditData] = useState([]);
-    const [des, setdesc] = useState([]);
+    const handleClick = () => {
+        setShow(!show)
+    }
+
+    const {
+        register: registerCreate,
+        formState: { errors },
+        handleSubmit: handleSubmitCreate,
+      } = useForm({
+        mode: "onBlur",
+      });
     
-    
-    const { register, handleSubmit, formState: { errors } } = useForm();
+      const {
+        register: registerUpdate,
+        reset,
+        formState: { errors: errors2 },
+        handleSubmit: handleSubmitUpdate,
+      } = useForm({
+        mode: "onBlur",
+      });
 
-    // Item Modal 
-
-    // Hero slider retrive data from api
-    const [Heroslider , setHeroSliders] = useState([]);
+    // Featch all social links
+    const [OfferSlider , setOfferSliders] = useState([]);
     useEffect(() => {
-        axios.get(`${window.baseUrl}sliders`)
+        axios.get(`${window.baseUrl}offer-sliders`)
         .then(res => {
             if (res.status === 200 && res.data.status === true) {
-                setHeroSliders(res.data.data);
-            } 
+                setOfferSliders(res.data.data);
+            }
         })
         .catch(error => {
             console.log('error')
@@ -52,35 +65,9 @@ export default function HeroSection() {
       }, [])
 
 
-    const handleClick = () => {
-        setShow(!show);
-        $('.dropify').dropify();
-    }
 
-    const handleImageChange = (e) => {
-        // console.log(e.target.files[])
-        if (e.target.files) {
-            const filesArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file));
+    //   Add social links
 
-            // console.log("filesArray: ", filesArray);
-
-            setSelectedFiles((prevImages) => prevImages.concat(filesArray));
-            Array.from(e.target.files).map(
-                (file) => URL.revokeObjectURL(file) // avoid memory leak
-            );
-        }
-    };
-
-    const renderPhotos = (source) => {
-        // console.log('source: ', source);
-        return source.map((photo) => {
-            return <div className="field_imglist"><img className='input_img' src={photo} alt="" key={photo} /></div>;
-        });
-    }
-
-
-
-    // ADD FORM OPERATION
     const onCreate = data => {
 
         let image = data.image.length === 0 ? '' : data.image;
@@ -89,65 +76,7 @@ export default function HeroSection() {
                 'content-type': 'multipart/form-data'
             }
         }
-
         var formData = new FormData()
-        formData.append('_method', data._method);
-                formData.append('description', data.description);
-        formData.append('link', data.link);
-        formData.append('precedence', data.precedence);
-
-        if (data.image.length !== 0) {
-
-            formData.append('image', image[0]);
-            axios.post(`${window.baseUrl}sliders/1`, formData, config)
-                .then(res => {
-                    
-                    if (res.status === 200 && res.data.status === true) {
-                        
-                        setHeroSliders([...Heroslider, res.data.data])
-
-                    } else {
-                        console.log('error');
-                    }
-                })
-                .catch(error => {
-                    console.log('error');
-                })
-        } else {
-
-            formData.append('image', image[0]);
-            axios.post(`${window.baseUrl}sliders/1`, formData, config)
-                .then(res => {
-                    console.log(res)
-                    if (res.status === 200 && res.data.status === true) {
-                        
-                        setHeroSliders([...Heroslider, res.data.data])
-                    } else {
-                        console.log('error');
-                    }
-                })
-                .catch(error => {
-                    console.log('error');
-                })
-        }
-        setShow(!show)
-
-    }
-    const onUpdate = data => {
-
-        console.log(data._method)
-        console.log(data.precedence)
-        console.log(data.image)
-        let image = data.image.length === 0 ? '' : data.image;
-        let config = {
-            headers: {
-                
-                'content-type': 'multipart/form-data'
-            }
-        }
-
-        var formData = new FormData()
-        formData.append('_method', data._method);
         formData.append('description', data.description);
         formData.append('link', data.link);
         formData.append('precedence', data.precedence);
@@ -155,12 +84,12 @@ export default function HeroSection() {
         if (data.image.length !== 0) {
 
             formData.append('image', image[0]);
-            axios.post(`${window.baseUrl}sliders/1`, formData, config)
+            axios.post(`${window.baseUrl}offer-sliders`, formData, config)
                 .then(res => {
                     
                     if (res.status === 200 && res.data.status === true) {
                         
-                        setHeroSliders([...Heroslider, res.data.data])
+                        setOfferSliders([res.data.data, ...OfferSlider])
 
                     } else {
                         console.log('error');
@@ -172,12 +101,12 @@ export default function HeroSection() {
         } else {
 
             formData.append('image', image[0]);
-            axios.post(`${window.baseUrl}sliders/1`, formData, config)
+            axios.post(`${window.baseUrl}offer-sliders`, formData, config)
                 .then(res => {
                     console.log(res)
                     if (res.status === 200 && res.data.status === true) {
                         
-                        setHeroSliders([...Heroslider, res.data.data])
+                        setOfferSliders([res.data.data, ...OfferSlider])
                     } else {
                         console.log('error');
                     }
@@ -187,15 +116,14 @@ export default function HeroSection() {
                 })
         }
         setShow(!show)
+        
 
     }
 
+    // View offerslider slider
 
-    // View hero slider
-
-    const ViewSlider= (id) => {
-        // console.log(id)
-        fetch(`${window.baseUrl}sliders/${id}`)
+    const ViewSocialLink= (id) => {
+        fetch(`${window.baseUrl}offer-sliders/${id}`)
           .then((res) => {
             if (res.status === 200) {
               return res.json()
@@ -212,89 +140,114 @@ export default function HeroSection() {
           .catch((error) => {
             console.log(error);
           })
-          
       }
+
+// Delete Socail Link
+    const deleteSocial = async (id) => {
+        setOfferSliders(OfferSlider.filter((social) => social.offer_slider_id !== id));
+    await fetch(`${window.baseUrl}offer-sliders/${id}`,{
+      method: 'DELETE'
+    })
+  }
+
+  // Edit function
+  const EditSocailLInk= async (id) => {
+    console.log(id)
+    await fetch(`${window.baseUrl}offer-sliders/${id}`)
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json()
+        }
+        else {
+          throw new Error(res.status)
+        }
+      })
+      .then(data => {
+        $('.dropify').dropify();
+        reset();
+        setEditID(data.data.offer_slider_id)
+        setEditData(data.data)
+        setEditShow(true)
+
+      }
+      )
+      .catch((error) => {
+        console.log(error);
+      })
       
+  }
 
-    //   const editcategory= async (id) => {
-          
-    //     // console.log(id)
-    //     // await fetch(`${window.baseUrl}sliders/${id}`)
-    //     axios.get(`${window.baseUrl}sliders/${id}`)
-    //     .then(res => {
-    //         console.log(res)
-    //         if (res.status === 200 && res.data.status === true) {
-                
-    //             setEditData(res.data.data)
-    //         } else {
-    //             console.log('error');
-    //         }
-    //     })
-    //     .catch(error => {
-    //         console.log('error');
-    //     })
-    //   }
 
-      const editcategory= async (id) => {
-        // console.log(id)
-        await fetch(`${window.baseUrl}sliders/${id}`)
-          .then((res) => {
-            if (res.status === 200) {
-                $('.dropify').dropify();
-            //   return res.json();
-              
+
+//   Update function
+
+  const onUpdate = data => {
+      console.log(data)
+    
+        let config = {
+            headers: {
+                'content-type': 'multipart/form-data'
             }
-            else {
-              throw new Error(res.status)
-            }
-          })
-          .then(data => {
-           
-            // console.log(data.data.description)
-            setdesc(data.data.slider_id)
-            setEditShow(true)
-          }
-          )
-          .catch((error) => {
-            console.log(error);
-          })
-          
-      }
+        }
+        var formData = new FormData()
+        formData.append('description', data.description);
+        formData.append('_method', "PUT");
+        formData.append('link', data.link);
+        formData.append('precedence', data.precedence);
 
-    //   console.log(EditData)
+        formData.append('image', data.image[0]);
+
+        axios.post(`${window.baseUrl}offer-sliders/${OfferSliderID}`, formData, config)
+            .then(res => {
+                if (res.status === 200 && res.data.status === true) {
+                    console.log(res.data.data)
+                    setOfferSliders([ res.data.data,...OfferSlider.filter((offerslider) => offerslider.offer_slider_id !== OfferSliderID)])
+                    
+                } else {
+                    console.log('error');
+                }
+            })
+            .catch(error => {
+                console.log('error');
+            })
+    
+    setEditShow(!EditShow)
+}
     // Pagination
 
-    const itemsPerPage = 5;
+    const itemsPerPage = 3;
     const PagesVisited = pageNumber * itemsPerPage
-    const pageCount = Math.ceil(Heroslider.length / itemsPerPage)
+
+    const pageCount = Math.ceil(OfferSlider.length / itemsPerPage)
     const changePage = ({ selected }) => {
         setPageNumber(selected)
     }
 
-    // Display heroslider data
-    const displayitems = Heroslider.slice(PagesVisited, PagesVisited + itemsPerPage)
-    .map((item) => {
-            return <div className="hero-section items_contents" key={item.slider_id}>
+    const displayitems = OfferSlider.slice(PagesVisited, PagesVisited + itemsPerPage)
+        .map((item) => {
+            return <div className="socialLink items_contents" key={item.offer_slider_id}>
                 <div className="container_inner">
-                    <div className="item_content">
-                        <div className="item_element img_content">
-                            <img src={item.image} alt="Product" />
-                        </div>
-                    </div>
+                    
                     <div className="item_content">
                         <h4 className='item_element'>{item.description}</h4>
                     </div>
                     <div className="item_content">
-                        <h4 className='item_element'>{item.link}</h4>
+                        <h4 className='item_element'>{item.link}</h4>    
                     </div>
                     <div className="item_content">
-                        <h4 className='item_element'>{item.precedence}</h4>
+                        <h4 className='item_element'>{item.precedence}</h4>    
+                    </div>
+                    <div className="item_content">
+                        <div className="item_element img_content item_icons">
+                            <img src={item.image} alt="Product" />
+                        </div>
                     </div>
                     <div className="item_content">
                         <div className='item_element'>
                             <div className="item_element_buttons">
-                            <button className='item_element_button' onClick={() => ViewSlider(item.slider_id)}><img src={Visible} alt="Visible" /></button>
-                            <button className='item_element_button'onClick={()=>editcategory(item.slider_id)} ><img src={Edit} alt="Edit" /></button>
+                            <button className='item_element_button' onClick={() => ViewSocialLink(item.offer_slider_id)}><img src={Visible} alt="Visible" /></button>
+                            <button className='item_element_button'onClick={()=>EditSocailLInk(item.offer_slider_id)} ><img src={Edit} alt="Edit" /></button>
+                            <button className='item_element_button' onClick={()=>deleteSocial(item.offer_slider_id)}><img src={Delete} alt="Delete" /></button>
                             </div>
                         </div>
                     </div>
@@ -302,7 +255,7 @@ export default function HeroSection() {
             </div>
         })
 
-
+ 
     return (
         <>
             <Header title='Business Overview' />
@@ -311,7 +264,7 @@ export default function HeroSection() {
                     <nav>
                         <ol className="breadcrumb">
                             <li className="breadcrumb-item"><Link to='/'>Dashboard</Link></li>
-                            <li className="breadcrumb-item active">Hero Section</li>
+                            <li className="breadcrumb-item active">offers-slider</li>
                         </ol>
                     </nav>
                     <div className="btn_addnew_wrapper">
@@ -329,17 +282,18 @@ export default function HeroSection() {
                     <div className="body_content">
                         <div className="items_header">
                             <div className="container_inner">
-                                <div className="item_title">
-                                    <h4>Image</h4>
-                                </div>
+                               
                                 <div className="item_title">
                                     <h4>Description</h4>
                                 </div>
                                 <div className="item_title">
-                                    <h4>Offer Link</h4>
+                                    <h4>Link</h4>
                                 </div>
                                 <div className="item_title">
-                                    <h4>Precedence</h4>
+                                    <h4>Presedence</h4>
+                                </div>
+                                <div className="item_title ">
+                                    <h4>Icons</h4>
                                 </div>
                                 <div className="item_title">
                                     <h4>Action</h4>
@@ -370,34 +324,35 @@ export default function HeroSection() {
                     </div>
                 </div>
             </div>
-
             {/* add item modal */}
-            <Modal show={show} onSubmit={handleSubmit(onCreate)} setShow={setShow} title={"Add new Hero-slider"}>
-                <div className='input_group'>
-                    <label htmlFor="" className='input_field_label'>Description</label>
-                    <input className='input_field' {...register("description")} name="description" type="text" placeholder="description" />
-                </div>
-                <div className='input_group'>
-                    <label htmlFor="" className='input_field_label'>Description</label>
-                    <input className='input_field' {...register("_method")} name="_method" value= "PUT" type="text" placeholder="description" />
-                </div>
-                <div className='input_group'>
-                    <label htmlFor="" className='input_field_label'>Link</label>
-                    <input className='input_field' {...register("link")} name="link" type="text" placeholder="link" />
-                </div>
+            <Modal key={1} show={show} onSubmit={handleSubmitCreate(onCreate)} setShow={setShow}>
                 
                 <div className='input_group'>
-                    <label htmlFor="" className='input_field_label'>Precedence</label>
-                    <input className='input_field' {...register("precedence")} name="precedence" type="text" placeholder="precedence" />
+                    <label htmlFor="" className='input_field_label'>Name</label>
+                    <input className='input_field' {...registerCreate("description", { required: true })} name="description" type="text" placeholder="description" />
                 </div>
+                {errors.description && <span className="errorMessage">You must specify Description</span>}
+
+                <div className='input_group'>
+                    <label htmlFor="" className='input_field_label'>Link</label>
+                    <input className='input_field' {...registerCreate("link",{ required: true })} name="link" type="text" placeholder="link" />
+                </div>
+                {errors.link && <span className="errorMessage">You must specify Link</span>}
+
+                <div className='input_group'>
+                    <label htmlFor="" className='input_field_label'>Precedence</label>
+                    <input className='input_field' {...registerCreate("precedence",{ required: true })} name="precedence" type="text" placeholder="precedence" />
+                </div>
+                {errors.precedence && <span className="errorMessage">You must specify Precedence</span>}
                 
                 <div className='input_group'>
                     <div>
                         <label htmlFor="" className='input_field_label'>Image (Max 10)</label>
-                        <input {...register("image")} name="image" type="file" className="dropify" accept="image/*" data-max-file-size="5M" />
-                        
+                        <input {...registerCreate("image",{ required: true })} name="image" type="file" className="dropify" accept="image/*" data-max-file-size="5M" />
                     </div>
+                    {errors.image && <span className="errorMessage">Please Insert Image</span>}
                 </div>
+
                 <div className="input_contents">
                     <div className="input_group">
                         <button type='button' className='cancel' onClick={() => setShow(!show)}>CANCEL</button>
@@ -407,38 +362,38 @@ export default function HeroSection() {
                         </button>
                     </div>
                 </div>
-                </Modal>
-
+            </Modal>
 
             {/* Edit item modal */}
-            <form onSubmit={handleSubmit(onUpdate)}>
-            {/* <Modal show={EditShow} setShow={setEditShow} onSubmit={handleSubmit(onUpdate)} title={"Edit Hero-slider"}> */}
+            <Modal key={2} show={EditShow} setShow={setEditShow} onReset={reset} onSubmit={handleSubmitUpdate(onUpdate)} title={"Edit offerslider Link"}>
                 <div className='input_group'>
-                    <label htmlFor="" className='input_field_label'>Description</label>
-                    <input className='input_field' {...register("_method")} name="_method" value= "PUT" type="text" placeholder="description" />
+                    <label htmlFor="" className='input_field_label'>Name</label>
+                    <input className='input_field' {...registerUpdate("description", { required: true })} defaultValue={EditData.description} name="description"  type="text" placeholder="description" />
                 </div>
-                <div className='input_group'>
-                    <label htmlFor="" className='input_field_label'>Description</label>
-                    <input className='input_field' {...register("description")} name="description" type="text" placeholder="description" />
-                </div>
+                {errors2.description && <span className="errorMessage">You must specify description</span>}
 
                 <div className='input_group'>
                     <label htmlFor="" className='input_field_label'>Link</label>
-                    <input className='input_field' {...register("link")} name="link" type="text" placeholder="link" />
+                    <input className='input_field' {...registerUpdate("link", { required: true })} name="link" defaultValue={EditData.link}  type="text" placeholder="link" />
                 </div>
+
+                {errors2.link && <span className="errorMessage">You must specify link</span>}
                 
                 <div className='input_group'>
                     <label htmlFor="" className='input_field_label'>Precedence</label>
-                    <input className='input_field' {...register("precedence")} name="precedence" type="text" placeholder="precedence" />
+                    <input className='input_field' {...registerUpdate("precedence", { required: true })} name="precedence" defaultValue={EditData.precedence} type="text" placeholder="precedence" />
                 </div>
+                {errors2.precedence && <span className="errorMessage">You must specify Precedence</span>}
                 
                 <div className='input_group'>
                     <div>
                         <label htmlFor="" className='input_field_label'>Image (Max 10)</label>
-                        <input {...register("image")} name="image" type="file" className="dropify" accept="image/*" data-max-file-size="5M" />
+                        <input {...registerUpdate("image", { required: true })} name="image" defaultValue={EditData.image} type="file" className="dropify" accept="image/*" data-max-file-size="5M" />
                         
+                    </div>
                 </div>
-                </div>
+                {errors2.image && <span className="errorMessage">Please Insert Image</span>}
+
                 <div className="input_contents">
                     <div className="input_group">
                         <button type='button' className='cancel' onClick={() => setEditShow(!EditShow)}>CANCEL</button>
@@ -448,8 +403,7 @@ export default function HeroSection() {
                         </button>
                     </div>
                 </div>
-                </form>
-                {/* </Modal> */}
+                </Modal>
 
             <ViewModal viewshow={viewshow} setViewshow={setViewshow}>
                 <div className='delivery_address_view pd_info_view'>
@@ -457,8 +411,8 @@ export default function HeroSection() {
                         <div className="ulcol">
                             <div className="ulcol1">
                                 <li>
-                                    <p>Slider Id</p>
-                                    <h6>{ViewData.slider_id}</h6>
+                                    <p>offerslider Id</p>
+                                    <h6>{ViewData.offer_slider_id}</h6>
                                 </li>
                                 <li>
                                     <p>Description</p>

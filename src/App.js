@@ -23,6 +23,7 @@ import ViewModal from './CommonComponents/Modal/ViewModal/ViewModal';
 import Home from './Pages/Home/Home';
 import Variants from './Pages/ItemManagement/Variants';
 import VariantsValues from './Pages/ItemManagement/VariantsValues';
+import OfferSlider from './Pages/ContentManagement/OfferSlider';
 
 function App() {
   const userData = JSON.parse(localStorage.getItem("user"));
@@ -52,6 +53,7 @@ function App() {
             <Route path='/testimonial' element={<Testimonial/>} />
             <Route path='/social-link' element={<SocialLink/>} />
             <Route path='/hero-section' element={<HeroSection/>} />
+            <Route path='/offer-slider' element={<OfferSlider/>} />
             <Route path='/delevery-fee' element={<DeleveryFee/>} />
             <Route path="/ViewModal" element={<ViewModal />} />
           </Routes>
